@@ -18,8 +18,8 @@ from django.urls import path
 from django.conf.urls import url
 from django.conf.urls import include
 from rango import views
-from django.conf import settings # Новый импорт
-from django.conf.urls.static import static # Новый Импорт
+from django.conf import settings  # Новый импорт
+from django.conf.urls.static import static  # Новый Импорт
 
 urlpatterns = [
     url(r'^rango/', include('rango.urls')),

@@ -1,18 +1,34 @@
 <!DOCTYPE html>
-
-{% load static %} <!-- Ноая строка -->
-
 <html>
-
     <head>
         <title>Rango</title>
     </head>
 
     <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
-        <a href="/rango/about/">About</a><br />
-        <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> <!-- Новая строка -->
-    </body>
+        <h1>Rango says..hello world!</h1>
 
+        {% if categories %}
+            <h1>Top likes categories</h1>
+            <ul>
+                {% for category in categories %}
+                <!-- Следующая строка была изменена и в неё была добавлена HTML гиперссылка -->
+                <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+       {% else %}
+            <strong>There are no categories present.</strong>
+       {% endif %}
+       {% if pages %}
+           <h1>Top views pages</h1>
+            <ul>
+                {% for page in pages %}
+                <!-- Следующая строка была изменена и в неё была добавлена HTML гиперссылка -->
+                <li>{{ page.title }}</a></li>
+                {% endfor %}
+            </ul>
+       {% else %}
+           <strong>There are no top view pages.</strong>
+       {% endif %}
+
+    </body>
 </html>
