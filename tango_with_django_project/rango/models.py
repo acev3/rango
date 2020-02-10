@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -28,3 +28,16 @@ class Page(models.Model):
 
     def __str__(self):  # For Python 2, use __unicode__ too
         return self.title
+
+
+class UserProfile(models.Model):
+    # Эта строка обязательна. Она связывает UserProfile с экземпляром модели User.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # Дополнительные атрибуты, которые мы хотим добавить.
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    # Переопределяем метод __unicode__(), чтобы вернуть что-либо значимое! Используйте __str__() в Python 3.*
+    def __str__(self):
+        return self.user.username
