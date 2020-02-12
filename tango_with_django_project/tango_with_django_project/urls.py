@@ -20,10 +20,19 @@ from django.conf.urls import include
 from rango import views
 from django.conf import settings  # Новый импорт
 from django.conf.urls.static import static  # Новый Импорт
+from registration.backends.simple.views import RegistrationView
+
+# Создайте новый класс, который перенаправит пользователя на главную страницу при успешной регистрации
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, request, user):
+        return '/rango/'
 
 urlpatterns = [
     url(r'^rango/', include('rango.urls')),
     url(r'^admin/', admin.site.urls),
+    # Добавляем эту строку в URL шаблоны, чтобы переопределить шаблон, используемый по умолчанию для учетных записей, - r'^accounts/'.
+    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]
 
 if settings.DEBUG:
