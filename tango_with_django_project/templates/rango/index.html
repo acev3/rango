@@ -1,44 +1,54 @@
 {% extends 'rango/base.html' %}
+
 {% load static %}
 
-{% block title_block %}
-    Rango
-{% endblock %}
+{% block title %}Index{% endblock %}
 
-{% block body_block %}
-        <h1>Rango says...</h1>
-        <div>
-           {% if user.is_authenticated %}
-                howdy {{ user.username }}!
-           {% else %}
-                hey there partner!
-           {% endif %}
-        </div>
-        <div>
-            {% if categories %}
-                <h2>Most Liked Categories</h2>
-                <ul>
-                    {% for category in categories %}
-                        <li>
-                            <a href="{% url 'category' category.slug %}">{{ category.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% if pages %}
-                <h2>Most Viewed Pages</h2>
-                <ul>
-                    {% for page in pages %}
-                        <li>
-                            <a href="{{ page.url }}">{{ page.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                    <strong>There are no pages present.</strong>
-                {% endif %}
+        {% block body_block %}
+{% if user.is_authenticated %}
+    <div class="page-header">
+
+                <h1>Rango says... hello {{ user.username }}!</h1>
             {% else %}
-                <strong>There are no categories present.</strong>
+                <h1>Rango says... hello world!</h1>
             {% endif %}
-             <p> visits: {{ visits }}</p>
-        </div>
-{% endblock %}
+</div>
+
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+                    <h4 class="panel-title">Categories</h4>
+
+              {% if categories %}
+                    <ul class="list-group">
+                        {% for category in categories %}
+                         <li class="list-group-item"><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no categories present.</strong>
+                {% endif %}
+
+            </div>
+           <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Pages</h4>
+
+                {% if pages %}
+                    <ul class="list-group">
+                        {% for page in pages %}
+                         <li class="list-group-item"><a href="{{page.url}}">{{ page.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no categories present.</strong>
+                {% endif %}
+                </div>
+
+          </div>
+      </div>
+
+
+       <p> visits: {{ visits }}</p>
+        {% endblock %}
+
+

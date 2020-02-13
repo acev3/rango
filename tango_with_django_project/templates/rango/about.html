@@ -1,14 +1,16 @@
 {% extends 'rango/base.html' %}
+
 {% load static %}
 
-{% block title_block %}
-    About
-{% endblock %}
+{% block title %}About{% endblock %}
 
 {% block body_block %}
-        <h1>Rango says...</h1>
-        <div>
-            This tutorial has been put together by Pavlos Ratis.<br />
-        </div>
-        <p> visits: {{ visits }}</p>
+    <div class="page-header">
+                <h1>About</h1>
+            </div>
+            <div>
+            <p></strong>.</p>
+
+            <img  width="500" height="600" src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
+            </div>
 {% endblock %}
